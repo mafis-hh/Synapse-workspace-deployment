@@ -64,7 +64,7 @@ export class Orchestrator {
                 SystemLogger.info("Attempting to delete artifacts from workspace, that were not in the template.");
                 var artifactsInWorkspace = await getArtifactsFromWorkspace(this.targetWorkspace, this.environment);
                 SystemLogger.info(`Found ${artifactsInWorkspace.length} artifacts in the workspace.`);
-                var artifactsToDeleteInWorkspace = getArtifactsToDeleteFromWorkspace(artifactsInWorkspace, artifactsToDeploy, typeMap);
+                var artifactsToDeleteInWorkspace = getArtifactsToDeleteFromWorkspace(artifactsInWorkspace, artifactsToDeploy, typeMap, canDeployMPE);
                 SystemLogger.info(`Found ${artifactsToDeleteInWorkspace.length} artifacts in the workspace that many need to be deleted.`);
                 var artifactsToDeleteInWorkspaceInOrder = getArtifactsToDeleteFromWorkspaceInOrder(artifactsToDeleteInWorkspace);
                 await this.deleteResourcesInOrder(this.artifactClient, artifactsToDeleteInWorkspaceInOrder!, this.targetWorkspace, this.environment, armParameterContent);
