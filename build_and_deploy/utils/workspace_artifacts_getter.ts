@@ -127,7 +127,8 @@ export async function getArtifactsFromWorkspace(targetWorkspaceName: string, env
 export function getArtifactsToDeleteFromWorkspace(
     artifactsInWorkspace: Resource[],
     artifactsToDeploy: Resource[][],
-    typeMap: Map<string, Artifact>): Resource[]
+    typeMap: Map<string, Artifact>,
+    deployMPE: boolean): Resource[]
 {
     SystemLogger.info("Getting Artifacts which should be deleted from workspace.");
     let artifactsToDelete = new Array<Resource>();
@@ -146,6 +147,7 @@ export function getArtifactsToDeleteFromWorkspace(
             artifactTypeToDeploy != Artifact.bigdatapools &&
             artifactTypeToDeploy != Artifact.managedvirtualnetworks &&
             artifactTypeToDeploy != Artifact.integrationruntime &&
+            (artifactTypeToDeploy != Artifact.managedprivateendpoints && deployMPE) &&
             checkResource.isDefault != true)
         {
             for(let i=0;i< artifactsToDeploy.length;i++)
